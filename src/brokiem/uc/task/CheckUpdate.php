@@ -33,7 +33,7 @@ class CheckUpdate extends AsyncTask {
                 $updateUrl = "";
 
                 foreach ($poggit as $pog) {
-                    if (version_compare($this->version, str_replace("-beta", "", $pog["version"]), ">=")) {
+                    if (version_compare($this->version, $pog["version"], ">=")) {
                         continue;
                     }
 
@@ -48,6 +48,12 @@ class CheckUpdate extends AsyncTask {
     }
 
     public function onCompletion(Server $server): void {
+        $plugin = $server->getPluginManager()->getPlugin($this->name);
+
+        if ($plugin === null) {
+            return;
+        }
+
         if ($this->getResult() === null) {
             $server->getLogger()->debug("[$this->name] Async update check failed!");
             return;
