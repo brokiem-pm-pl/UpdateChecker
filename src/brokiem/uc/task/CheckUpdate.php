@@ -24,7 +24,7 @@ class CheckUpdate extends AsyncTask {
     public function onRun(): void {
         $poggitData = Internet::getURL(self::POGGIT_URL . $this->name);
 
-        if ($poggitData) {
+        if (is_string($poggitData)) {
             $poggit = json_decode($poggitData, true);
 
             if (is_array($poggit)) {
@@ -48,12 +48,6 @@ class CheckUpdate extends AsyncTask {
     }
 
     public function onCompletion(Server $server): void {
-        $plugin = $server->getPluginManager()->getPlugin($this->name);
-
-        if ($plugin === null) {
-            return;
-        }
-
         if ($this->getResult() === null) {
             $server->getLogger()->debug("[$this->name] Async update check failed!");
             return;
