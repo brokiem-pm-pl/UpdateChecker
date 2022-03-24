@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace brokiem\updatechecker;
 
 // taken from https://github.com/Plugins-PocketMineMP/PocketMine-Promise/blob/master/src/alvin0319/Promise/Promise.php
-class Promise {
+final class Promise {
 
     public const PENDING = "pending";
     public const REJECTED = "rejected";
