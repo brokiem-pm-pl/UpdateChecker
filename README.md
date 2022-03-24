@@ -3,7 +3,7 @@
 ```php
 // use promise for poggit json data
 $promise = new Promise()
-$options = [\brokiem\updatechecker\Option::LOG_NEW_UPDATE => true]
+$options = [\brokiem\updatechecker\Option::LOG_NEW_UPDATE => true, \brokiem\updatechecker\Option::LOG => false]
 
 \brokiem\updatechecker\UpdateChecker::checkUpdate("YourPluginName", $promise, $options);
 
