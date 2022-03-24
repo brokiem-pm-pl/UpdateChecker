@@ -34,7 +34,7 @@ class CheckUpdateTask extends AsyncTask {
         if (is_string($poggitData)) {
             $poggit = json_decode($poggitData, true);
 
-            if (is_array($poggit)) {
+            if (is_array($poggit) and !empty($poggit)) {
                 $this->setResult($poggit);
             }
         }
