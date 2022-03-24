@@ -1,6 +1,6 @@
 name: UpdateChecker
 version: 1.0.0
-api: 3.0.0
-antigen: brokiem\uc
+api: 4.0.0
+antigen: brokiem\updatechecker
 author: brokiem
-php: 7.3
+php: 8.0
