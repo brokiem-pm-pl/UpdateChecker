@@ -35,11 +35,7 @@ class CheckUpdateTask extends AsyncTask {
             $poggit = json_decode($poggitData, true);
 
             if (is_array($poggit)) {
-                if (empty($poggit)) {
-                    $this->setResult(Status::PLUGIN_NOT_FOUND);
-                } else {
-                    $this->setResult($poggit);
-                }
+                $this->setResult($poggit);
             }
         }
     }
@@ -57,8 +53,8 @@ class CheckUpdateTask extends AsyncTask {
             return;
         }
 
-        if ($results === Status::PLUGIN_NOT_FOUND) {
-            $promise->reject($results);
+        if (empty($results)) {
+            $promise->reject(Status::PLUGIN_NOT_FOUND);
             return;
         }
 
