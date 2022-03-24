@@ -19,7 +19,9 @@ class CheckUpdateTask extends AsyncTask {
         $plugin = Server::getInstance()->getPluginManager()->getPlugin($plugin_name);
 
         if ($plugin === null) {
-            throw new \RuntimeException("Plugin $plugin_name not found");
+            Server::getInstance()->getLogger()->error("[UpdateChecker] Plugin $this->plugin_name is not installed, update checker failed");
+            $this->cancelRun();
+            return;
         }
 
         $this->options = $options;
