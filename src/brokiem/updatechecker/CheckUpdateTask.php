@@ -19,7 +19,7 @@ class CheckUpdateTask extends AsyncTask {
         $plugin = Server::getInstance()->getPluginManager()->getPlugin($plugin_name);
 
         if ($plugin === null) {
-            Server::getInstance()->getLogger()->error("[UpdateChecker] Plugin $this->plugin_name is not installed, update checker failed");
+            Server::getInstance()->getLogger()->error("[UpdateChecker] Update checker failed: Plugin $this->plugin_name is not installed");
             $this->cancelRun();
             return;
         }
