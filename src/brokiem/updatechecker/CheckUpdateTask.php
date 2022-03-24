@@ -51,11 +51,19 @@ class CheckUpdateTask extends AsyncTask {
         $results = $this->getResult();
 
         if ($results === null) {
+            if ($this->options[Option::LOG] ?? true) {
+                $plugin->getLogger()->error("Update checker failed: Connection timeout");
+            }
+
             $promise->reject(Status::CONNECTION_FAILED);
             return;
         }
 
         if (empty($results)) {
+            if ($this->options[Option::LOG] ?? true) {
+                $plugin->getLogger()->error("Update checker failed: Plugin not found");
+            }
+
             $promise->reject(Status::PLUGIN_NOT_FOUND);
             return;
         }
@@ -73,6 +81,10 @@ class CheckUpdateTask extends AsyncTask {
                 $promise->resolve($result);
                 return;
             }
+        }
+
+        if ($this->options[Option::LOG] ?? true) {
+            $plugin->getLogger()->debug("[UpdateChecker] You are on latest version (v" . $plugin->getDescription()->getVersion() . ")");
         }
 
         $promise->reject(Status::NO_UPDATES_FOUND);
