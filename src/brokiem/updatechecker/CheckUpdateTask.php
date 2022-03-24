@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace brokiem\updatechecker;
 
-use pocketmine\plugin\Plugin;
 use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;
 use pocketmine\utils\Internet;
@@ -13,12 +12,16 @@ class CheckUpdateTask extends AsyncTask {
 
     private const POGGIT_URL = "https://poggit.pmmp.io/releases.json?name=";
 
-    private string $plugin_name;
     private string $plugin_version;
     private array $options;
 
-    public function __construct(private Plugin $plugin, Promise $promise, array $options) {
-        $this->plugin_name = $plugin->getDescription()->getName();
+    public function __construct(private string $plugin_name, Promise $promise, array $options) {
+        $plugin = Server::getInstance()->getPluginManager()->getPlugin($plugin_name);
+
+        if ($plugin === null) {
+            throw new \RuntimeException("Plugin $plugin_name not found");
+        }
+
         $this->plugin_version = $plugin->getDescription()->getVersion();
         $this->options = $options;
 
