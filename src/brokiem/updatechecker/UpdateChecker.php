@@ -8,7 +8,7 @@ use pocketmine\Server;
 
 final class UpdateChecker {
 
-    public static function checkUpdate(string $plugin_name, Promise $promise, array $options = []): void {
-        Server::getInstance()->getAsyncPool()->submitTask(new CheckUpdateTask($plugin_name, $promise, $options));
+    public static function checkUpdate(string $plugin_name, string $plugin_version, Promise $promise, array $options = []): void {
+        Server::getInstance()->getAsyncPool()->submitTask(new CheckUpdateTask($plugin_name, $plugin_version, $promise, $options));
     }
 }
